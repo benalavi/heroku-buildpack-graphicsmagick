@@ -94,7 +94,7 @@ $basedir/aws/s3 put $S3_BUCKET $LIBJPEG_TURBO_REMOTE_PATH $libjpeg_turbo_local_p
 echo ">>> Downloading graphicsmagick"
 
 gm_local_path=$tempdir/graphcismagick-${GRAPHICS_MAGICK_VERSION}.tgz
-gm_sources=$tempdir/graphicsmagick-${LIBPNG_VERSION}.tar.gz
+gm_sources=$tempdir/graphicsmagick-${GRAPHICS_MAGICK_VERSION}.tar.gz
 #curl ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/1.3/GraphicsMagick-${GRAPHICS_MAGICK_VERSION}.tar.gz > $gm_sources
 curl http://78.108.103.11/MIRROR/ftp/GraphicsMagick/1.3/GraphicsMagick-${GRAPHICS_MAGICK_VERSION}.tar.gz > $gm_sources
 
@@ -103,7 +103,7 @@ tar -C $tempdir -x -z -f $gm_sources
 echo ">>> Building graphicsmagick"
 
 # build and package imagemagick for heroku
-cd $tempdir/GraphicsMagick-1.3.18
+cd $tempdir/GraphicsMagick-${GRAPHICS_MAGICK_VERSION}
 ./configure --prefix /app/vendor/graphicsmagick && make install
 
 echo ">>> Uploading graphics magick artifact"
