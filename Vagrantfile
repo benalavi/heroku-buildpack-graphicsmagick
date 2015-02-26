@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.provision :shell, inline: <<-EOS
-bash <(curl -s https://raw.githubusercontent.com/heroku/stack-images/master/bin/cedar-14.sh)
+bash <(curl -s https://raw.githubusercontent.com/heroku/stack-images/master/bin/cedar-14.sh | sed 's/pruned_find -perm .* [|] xargs -r chmod .*//' | sed 's,chown root:root /var/lib/libuuid,,')
 mkdir -p /app && chown vagrant:vagrant /app
 EOS
   end
