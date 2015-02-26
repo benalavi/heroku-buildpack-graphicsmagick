@@ -1,5 +1,6 @@
 #! /bin/bash
-set -ex
+set -e
+[ "$DEBUG" == "true" ] && set -x
 
 source `dirname $0`/../configs.sh
 
@@ -19,6 +20,11 @@ fi
 
 if [ "$S3_BUCKET" == "" ]; then
   echo "must set S3_BUCKET"
+  exit 1
+fi
+
+if [ "$STACK" == "" ]; then
+  echo "must set STACK to the heroku stack being compiled for (i.e. STACK=cedar or STACK=cedar-14)"
   exit 1
 fi
 
@@ -42,7 +48,7 @@ cd $tempdir/zlib-${ZLIB_VERSION}
 echo ">>> Uploading zlib"
 
 cd /app/vendor/zlib && tar -czvf $zlib_local_path .
-$basedir/aws/s3 put $S3_BUCKET $ZLIB_REMOTE_PATH $zlib_local_path
+$basedir/aws/s3 put $S3_BUCKET $STACK/$ZLIB_REMOTE_PATH $zlib_local_path
 
 echo ">>> Building libpng"
 
@@ -58,7 +64,7 @@ echo "    to ${S3_BUCKET}/${LIBPNG_REMOTE_PATH}"
 echo "    from ${libpng_local_path}"
 
 cd /app/vendor/libpng && tar -czvf $libpng_local_path .
-$basedir/aws/s3 put $S3_BUCKET $LIBPNG_REMOTE_PATH $libpng_local_path
+$basedir/aws/s3 put $S3_BUCKET $STACK/$LIBPNG_REMOTE_PATH $libpng_local_path
 
 echo ">>> Building nasm"
 
@@ -74,7 +80,7 @@ echo "    to ${S3_BUCKET}/${NASM_REMOTE_PATH}"
 echo "    from ${nasm_local_path}"
 
 cd /app/vendor/nasm && tar -czvf $nasm_local_path .
-$basedir/aws/s3 put $S3_BUCKET $NASM_REMOTE_PATH $nasm_local_path
+$basedir/aws/s3 put $S3_BUCKET $STACK/$NASM_REMOTE_PATH $nasm_local_path
 
 echo ">>> Building libjpeg-turbo"
 
@@ -89,7 +95,7 @@ echo "    to ${S3_BUCKET}/${LIBJPEG_TURBO_REMOTE_PATH}"
 echo "    from ${libjpeg_turbo_local_path}"
 
 cd /app/vendor/libjpeg_turbo && tar -czvf $libjpeg_turbo_local_path .
-$basedir/aws/s3 put $S3_BUCKET $LIBJPEG_TURBO_REMOTE_PATH $libjpeg_turbo_local_path
+$basedir/aws/s3 put $S3_BUCKET $STACK/$LIBJPEG_TURBO_REMOTE_PATH $libjpeg_turbo_local_path
 
 echo ">>> Downloading graphicsmagick"
 
@@ -111,4 +117,4 @@ echo "    to ${S3_BUCKET}/${REMOTE_PATH}"
 echo "    from ${gm_local_path}"
 
 cd /app/vendor/graphicsmagick && tar -czvf $gm_local_path .
-$basedir/aws/s3 put $S3_BUCKET $REMOTE_PATH $gm_local_path
+$basedir/aws/s3 put $S3_BUCKET $STACK/$REMOTE_PATH $gm_local_path
