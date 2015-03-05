@@ -24,7 +24,7 @@ If it is not working with yours, please report a bug.
 
 ## Cedar vs Cedar-14
 
-**You shouldn't need to worry about when using on Heroku.**
+**You shouldn't need to worry about this when using Heroku.**
 
 There are separate binaries for Heroku's `cedar` and `cedar-14` stacks. When
 deploying to Heroku the buildpack automatically chooses which binary to use
@@ -64,12 +64,12 @@ push your sample app to Heroku to test.  You should see:
     -----> Downloading graphicsmagick YOUR_IMAGE_MAGICK_VERSION_HERE
 
 There is also a `Vagrantfile` which can be used with
-(Vagrant)[https://www.vagrantup.com/] to build `cedar` and `cedar-14` virtual
+[Vagrant](https://www.vagrantup.com/) to build `cedar` and `cedar-14` virtual
 machines using Heroku's own open-source provisioning scripts. This allows you
 to build and test your changes in a local VM with a shared filesystem rather
 than having to push your changes up to Github and building on Heroku.
 
-To build with VMs install (Vagrant)[https://www.vagrantup.com/] and then run
+To build with VMs install [Vagrant](https://www.vagrantup.com/) and then run
 `vagrant up`. Once it completes you will have two running VMs named `cedar` and
 `cedar-14`. Vagrant by default will map your project folder to `/vagrant` on
 the VM's filesystem.
@@ -90,7 +90,7 @@ This is an **OPEN Open Source Project** -- this means that:
 commit-access to the project to contribute as they see fit. This project is
 more like an open wiki than a standard guarded open source project.
 
-_This project is currently being maintained by Ben Alavi (@benalavi)._
+_This project is currently being maintained by Ben Alavi (benalavi)._
 
 ## LICENSE - "MIT License"
 
